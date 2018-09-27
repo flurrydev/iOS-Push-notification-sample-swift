@@ -22,6 +22,7 @@
 		765DEBED215D7B6C00F98BB1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		765DEBF0215D7B6C00F98BB1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		765DEBF2215D7B6C00F98BB1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		765DEBF8215D7B9300F98BB1 /* FlurryMarketingSampleApp_Swift.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = FlurryMarketingSampleApp_Swift.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +55,7 @@
 		765DEBE5215D7B6C00F98BB1 /* FlurryMarketingSampleApp_Swift */ = {
 			isa = PBXGroup;
 			children = (
+				765DEBF8215D7B9300F98BB1 /* FlurryMarketingSampleApp_Swift.entitlements */,
 				765DEBE6215D7B6C00F98BB1 /* AppDelegate.swift */,
 				765DEBE8215D7B6C00F98BB1 /* ViewController.swift */,
 				765DEBEA215D7B6C00F98BB1 /* Main.storyboard */,
@@ -96,6 +98,14 @@
 				TargetAttributes = {
 					765DEBE2215D7B6C00F98BB1 = {
 						CreatedOnToolsVersion = 9.4.1;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -280,9 +290,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = FlurryMarketingSampleApp_Swift/FlurryMarketingSampleApp_Swift.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = S6JSG6FHB3;
 				INFOPLIST_FILE = FlurryMarketingSampleApp_Swift/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -298,9 +310,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = FlurryMarketingSampleApp_Swift/FlurryMarketingSampleApp_Swift.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = S6JSG6FHB3;
 				INFOPLIST_FILE = FlurryMarketingSampleApp_Swift/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
