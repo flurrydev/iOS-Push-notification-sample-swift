@@ -1,24 +1,158 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.16" systemVersion="17A277" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
-    <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.12"/>
-        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
-        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
-    </dependencies>
-    <scenes>
-        <!--View Controller-->
-        <scene sceneID="tne-QT-ifu">
-            <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
-            </objects>
-        </scene>
-    </scenes>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Uae-Lu-mOP">
+<device id="retina4_7" orientation="portrait">
+<adaptation id="fullscreen"/>
+</device>
+<dependencies>
+<deployment identifier="iOS"/>
+<plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+<capability name="Safe area layout guides" minToolsVersion="9.0"/>
+<capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+</dependencies>
+<scenes>
+<!--Marketing-->
+<scene sceneID="tne-QT-ifu">
+<objects>
+<viewController id="BYZ-38-t0r" customClass="ViewController" customModule="FlurryMarketingSample_Swift" customModuleProvider="target" sceneMemberID="viewController">
+<view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+<rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+<autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+<subviews>
+<label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Flurry Marketing Sample Swift" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rPV-7a-tsE">
+<rect key="frame" x="16" y="166" width="343" height="21"/>
+<constraints>
+<constraint firstAttribute="height" constant="21" id="1Dy-42-LmF"/>
+</constraints>
+<fontDescription key="fontDescription" type="system" pointSize="17"/>
+<nil key="textColor"/>
+<nil key="highlightedColor"/>
+</label>
+<button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PrU-Y1-sCq">
+<rect key="frame" x="16" y="235" width="343" height="30"/>
+<state key="normal" title="Go to deeplink page"/>
+<connections>
+<segue destination="DlL-bn-dM6" kind="show" id="xNf-cv-ijv"/>
+</connections>
+</button>
+<button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0m8-Z6-hHY">
+<rect key="frame" x="16" y="292" width="343" height="30"/>
+<state key="normal" title="Go to key-value page"/>
+<connections>
+<segue destination="bfP-Y5-ILg" kind="show" id="buP-X6-xjL"/>
+</connections>
+</button>
+</subviews>
+<color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+<constraints>
+<constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="PrU-Y1-sCq" secondAttribute="trailing" constant="16" id="F0o-HT-YRU"/>
+<constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="rPV-7a-tsE" secondAttribute="trailing" constant="16" id="KtI-t9-m7O"/>
+<constraint firstItem="rPV-7a-tsE" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="Pgj-bG-fp8"/>
+<constraint firstItem="rPV-7a-tsE" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="102" id="Vxi-Ub-7bT"/>
+<constraint firstItem="0m8-Z6-hHY" firstAttribute="top" secondItem="PrU-Y1-sCq" secondAttribute="bottom" constant="27" id="Wlg-Cb-hWu"/>
+<constraint firstItem="PrU-Y1-sCq" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="gJZ-RQ-XXk"/>
+<constraint firstItem="PrU-Y1-sCq" firstAttribute="top" secondItem="rPV-7a-tsE" secondAttribute="bottom" constant="48" id="oS3-P7-9Mp"/>
+<constraint firstItem="0m8-Z6-hHY" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="t8O-Q3-uQ5"/>
+<constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="0m8-Z6-hHY" secondAttribute="trailing" constant="16" id="ugE-ey-66M"/>
+<constraint firstItem="0m8-Z6-hHY" firstAttribute="top" secondItem="PrU-Y1-sCq" secondAttribute="bottom" constant="27" id="yoJ-qY-Kcs"/>
+</constraints>
+<viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+</view>
+<navigationItem key="navigationItem" title="Marketing" id="i8I-cK-EWC"/>
+</viewController>
+<placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+</objects>
+<point key="canvasLocation" x="1093.5999999999999" y="-564.46776611694156"/>
+</scene>
+<!--Deeplink View Controller-->
+<scene sceneID="hIy-iR-fzi">
+<objects>
+<viewController storyboardIdentifier="deeplink" useStoryboardIdentifierAsRestorationIdentifier="YES" id="DlL-bn-dM6" customClass="DeeplinkViewController" customModule="FlurryMarketingSample_Swift" customModuleProvider="target" sceneMemberID="viewController">
+<view key="view" contentMode="scaleToFill" id="egO-8p-7mw">
+<rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+<autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+<subviews>
+<label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Deeplink sample page" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ciW-E2-Zem">
+<rect key="frame" x="16" y="189" width="343" height="21"/>
+<fontDescription key="fontDescription" type="system" pointSize="17"/>
+<nil key="textColor"/>
+<nil key="highlightedColor"/>
+</label>
+</subviews>
+<color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+<constraints>
+<constraint firstItem="ciW-E2-Zem" firstAttribute="leading" secondItem="y2b-sM-cDH" secondAttribute="leading" constant="16" id="AOW-6R-8gP"/>
+<constraint firstItem="ciW-E2-Zem" firstAttribute="top" secondItem="y2b-sM-cDH" secondAttribute="top" constant="125" id="Jiy-T4-O1c"/>
+<constraint firstItem="y2b-sM-cDH" firstAttribute="trailing" secondItem="ciW-E2-Zem" secondAttribute="trailing" constant="16" id="cd1-6c-fty"/>
+</constraints>
+<viewLayoutGuide key="safeArea" id="y2b-sM-cDH"/>
+</view>
+</viewController>
+<placeholder placeholderIdentifier="IBFirstResponder" id="fD8-O2-HN3" userLabel="First Responder" sceneMemberID="firstResponder"/>
+</objects>
+<point key="canvasLocation" x="1970" y="-564"/>
+</scene>
+<!--key value-->
+<scene sceneID="bKX-Du-o8h">
+<objects>
+<tableViewController title="key value" id="bfP-Y5-ILg" customClass="KeyValueTableViewController" customModule="FlurryMarketingSample_Swift" customModuleProvider="target" sceneMemberID="viewController">
+<tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="laf-SB-b9F">
+<rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+<autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+<color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+<prototypes>
+<tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" textLabel="7uC-oM-crX" detailTextLabel="hCt-wV-59e" style="IBUITableViewCellStyleValue1" id="glF-zt-Qof">
+<rect key="frame" x="0.0" y="55.5" width="375" height="44"/>
+<autoresizingMask key="autoresizingMask"/>
+<tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="glF-zt-Qof" id="uVr-a9-nAJ">
+<rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+<autoresizingMask key="autoresizingMask"/>
+<subviews>
+<label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="7uC-oM-crX">
+<rect key="frame" x="16" y="12" width="33.5" height="20.5"/>
+<autoresizingMask key="autoresizingMask"/>
+<fontDescription key="fontDescription" type="system" pointSize="17"/>
+<nil key="textColor"/>
+<nil key="highlightedColor"/>
+</label>
+<label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="hCt-wV-59e">
+<rect key="frame" x="321.5" y="15" width="37.5" height="17"/>
+<autoresizingMask key="autoresizingMask"/>
+<fontDescription key="fontDescription" type="system" pointSize="14"/>
+<color key="textColor" red="0.43529412150000002" green="0.4431372583" blue="0.47450980539999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+<nil key="highlightedColor"/>
+</label>
+</subviews>
+</tableViewCellContentView>
+</tableViewCell>
+</prototypes>
+<sections/>
+<connections>
+<outlet property="dataSource" destination="bfP-Y5-ILg" id="rwG-hL-lNJ"/>
+<outlet property="delegate" destination="bfP-Y5-ILg" id="JKc-lB-DKq"/>
+</connections>
+</tableView>
+</tableViewController>
+<placeholder placeholderIdentifier="IBFirstResponder" id="ivk-LI-chR" userLabel="First Responder" sceneMemberID="firstResponder"/>
+</objects>
+<point key="canvasLocation" x="1094" y="215"/>
+</scene>
+<!--Navigation Controller-->
+<scene sceneID="4eo-XQ-dKp">
+<objects>
+<navigationController automaticallyAdjustsScrollViewInsets="NO" id="Uae-Lu-mOP" sceneMemberID="viewController">
+<toolbarItems/>
+<navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="XHN-z9-dFH">
+<rect key="frame" x="0.0" y="20" width="375" height="44"/>
+<autoresizingMask key="autoresizingMask"/>
+</navigationBar>
+<nil name="viewControllers"/>
+<connections>
+<segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="2ZD-Ip-J8k"/>
+</connections>
+</navigationController>
+<placeholder placeholderIdentifier="IBFirstResponder" id="Kh3-UB-8B1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+</objects>
+<point key="canvasLocation" x="133.59999999999999" y="-564.46776611694156"/>
+</scene>
+</scenes>
 </document>
