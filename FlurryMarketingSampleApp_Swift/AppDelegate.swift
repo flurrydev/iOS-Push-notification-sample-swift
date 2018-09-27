@@ -10,7 +10,6 @@ import UIKit
 import Flurry_iOS_SDK
 import CoreLocation
 
-
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, FlurryMessagingDelegate, UNUserNotificationCenterDelegate, CLLocationManagerDelegate{
     
