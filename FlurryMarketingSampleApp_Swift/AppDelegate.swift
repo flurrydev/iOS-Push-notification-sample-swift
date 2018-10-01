@@ -16,8 +16,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, FlurryMessagingDelegate, 
     
     var window: UIWindow?
     let locationManager = CLLocationManager()
+    var flag: Bool!
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+        
+        flag = false
         
         // location
         locationManager.delegate = self
@@ -27,35 +30,32 @@ class AppDelegate: UIResponder, UIApplicationDelegate, FlurryMessagingDelegate, 
         if CLLocationManager.locationServicesEnabled() {
             Flurry.trackPreciseLocation(true)
         }
-        
-
-         // AUTO USE
-         // FlurryMessaging.setAutoIntegrationForMessaging()
-
-
-
-        // MANUAL USE
-        // register
-        if #available(iOS 10.0, *) {
-            let center = UNUserNotificationCenter.current()
-            center.delegate = self
-            center.requestAuthorization(options: [.alert, .sound]) { (granted, error) in
-                // Enable or disable features based on authorization.
-                if granted {
-                    print("Notification enable successfully")
-                } else {
-                    print("push registration failed. ERROR: \(error?.localizedDescription ?? "error")")
-                }
-                application.registerForRemoteNotifications()
-
-            }
+        if flag {
+            // AUTO USE
+            FlurryMessaging.setAutoIntegrationForMessaging()
         } else {
-            // early version support
-            UIApplication.shared.registerUserNotificationSettings(UIUserNotificationSettings(types: [.badge, .sound, .alert], categories: nil))
-            UIApplication.shared.registerForRemoteNotifications()
+            // MANUAL USE
+            // register
+            if #available(iOS 10.0, *) {
+                let center = UNUserNotificationCenter.current()
+                center.delegate = self
+                center.requestAuthorization(options: [.alert, .sound]) { (granted, error) in
+                    // Enable or disable features based on authorization.
+                    if granted {
+                        print("Notification enable successfully")
+                    } else {
+                        print("push registration failed. ERROR: \(error?.localizedDescription ?? "error")")
+                    }
+                    application.registerForRemoteNotifications()
+                    
+                }
+            } else {
+                // early version support
+                UIApplication.shared.registerUserNotificationSettings(UIUserNotificationSettings(types: [.badge, .sound, .alert], categories: nil))
+                UIApplication.shared.registerForRemoteNotifications()
+            }
         }
-        
-        
+ 
         // start flurry session
         if let path = Bundle.main.path(forResource: "FlurryMarketingConfig", ofType: "plist") {
             let info = NSDictionary(contentsOfFile: path)

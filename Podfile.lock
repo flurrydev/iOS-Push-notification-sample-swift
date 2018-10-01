@@ -1,7 +1,7 @@
 PODS:
-  - Flurry-iOS-SDK/FlurryMessaging (9.0.0):
+  - Flurry-iOS-SDK/FlurryMessaging (9.2.0):
     - Flurry-iOS-SDK/FlurrySDK
-  - Flurry-iOS-SDK/FlurrySDK (9.0.0)
+  - Flurry-iOS-SDK/FlurrySDK (9.2.0)
 
 DEPENDENCIES:
   - Flurry-iOS-SDK/FlurryMessaging
@@ -12,7 +12,7 @@ SPEC REPOS:
     - Flurry-iOS-SDK
 
 SPEC CHECKSUMS:
-  Flurry-iOS-SDK: 58e48e417fee667154e4d240040b270b3734d28a
+  Flurry-iOS-SDK: e5d6ff8cb79b5044710a0c7ae41b12ac651f4315
 
 PODFILE CHECKSUM: 699a1e7f30d6613935c1cf9a858b3f2ea13fee85
 
