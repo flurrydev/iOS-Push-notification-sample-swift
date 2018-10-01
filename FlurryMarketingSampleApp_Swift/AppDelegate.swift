@@ -1,5 +1,5 @@
 //
-//  FlurryMarketingConfiguration.swift
+//  AppDelegate.swift
 //  FlurryMarketingSampleApp_Swift
 //
 //  Created by Yilun Xu on 9/27/18.
