@@ -10,14 +10,11 @@ import UIKit
 import Flurry_iOS_SDK
 import CoreLocation
 
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, FlurryMessagingDelegate, UNUserNotificationCenterDelegate, CLLocationManagerDelegate{
     
     var window: UIWindow?
-    var apiKey = FlurryMarketingConfiguration.sharedInstance.getApiKey()
-    var seconds = FlurryMarketingConfiguration.sharedInstance.getSessionSeconds()
-    var enableCrashReports = FlurryMarketingConfiguration.sharedInstance.getCrashReport()
-    var version = FlurryMarketingConfiguration.sharedInstance.getAppVersion()
     let locationManager = CLLocationManager()
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
@@ -31,12 +28,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, FlurryMessagingDelegate, 
             Flurry.trackPreciseLocation(true)
         }
         
-        /*
-         //AUTO USE
-         FlurryMessaging.setAutoIntegrationForMessaging()
-         */
-        
-        
+
+         // AUTO USE
+         // FlurryMessaging.setAutoIntegrationForMessaging()
+
+
+
         // MANUAL USE
         // register
         if #available(iOS 10.0, *) {
@@ -50,7 +47,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, FlurryMessagingDelegate, 
                     print("push registration failed. ERROR: \(error?.localizedDescription ?? "error")")
                 }
                 application.registerForRemoteNotifications()
-                
+
             }
         } else {
             // early version support
@@ -59,16 +56,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate, FlurryMessagingDelegate, 
         }
         
         
-        FlurryMessaging.setMessagingDelegate(self)
-        let builder = FlurrySessionBuilder.init()
-            .withLogLevel(FlurryLogLevelAll)
-            .withAppVersion(version)
-            .withCrashReporting(enableCrashReports)
-            .withSessionContinueSeconds(seconds)
-            .withIncludeBackgroundSessions(inMetrics: true)
-        Flurry.startSession(apiKey, with: builder)
-        
-        return true
+        // start flurry session
+        if let path = Bundle.main.path(forResource: "FlurryMarketingConfig", ofType: "plist") {
+            let info = NSDictionary(contentsOfFile: path)
+            FlurryMessaging.setMessagingDelegate(self)
+            let builder = FlurrySessionBuilder.init()
+                .withLogLevel(FlurryLogLevelAll)
+                .withAppVersion(info?.object(forKey: "appVersion") as! String)
+                .withCrashReporting(info?.object(forKey: "enableCrashReport") as! Bool)
+                .withSessionContinueSeconds(info?.object(forKey: "sessionSeconds") as! Int)
+                .withIncludeBackgroundSessions(inMetrics: true)
+            Flurry.startSession(info?.object(forKey: "apiKey") as! String, with: builder)
+        } else {
+            print("please check your plist file")
+        }
+      return true
     }
     
     // MARK: - flurry messaging delegate methods
@@ -79,6 +81,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, FlurryMessagingDelegate, 
         // additional logic here
         
         // ex: key value pair store
+        print("here")
+        message.appData?.forEach { print("\($0): \($1)") }
+        print("there")
         let sharedPref = UserDefaults.standard
         sharedPref.set(message.appData, forKey: "data")
         sharedPref.synchronize()
@@ -90,6 +95,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, FlurryMessagingDelegate, 
         // additional logic here
         
         // ex: key value pair store
+        message.appData?.forEach { print("\($0): \($1)") }
         let sharedPref = UserDefaults.standard
         sharedPref.set(message.appData, forKey: "data")
         sharedPref.synchronize()
@@ -109,7 +115,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, FlurryMessagingDelegate, 
         print("url host is : \(url.host ?? "default host")")
         print("url path is : \(url.path)")
         print("url schme is : \(url.scheme ?? "default schme")")
-        if url.scheme == "Flurry" && url.host == "marketing" && url.path == "/deeplink" {
+        if url.scheme == "flurry" && url.host == "marketing" && url.path == "/deeplink" {
             print("valid deeplink url")
             let rootViewController = self.window!.rootViewController as! UINavigationController
             let mainStoryboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
@@ -120,14 +126,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate, FlurryMessagingDelegate, 
         return true
     }
     
-    
+
     // MARK: - manual integration delegate method
-    
+
     // set device token
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
-        FlurryMessaging.setDeviceToken(deviceToken)
+        let   tokenString = deviceToken.reduce("", {$0 + String(format: "%02X",    $1)})
+        // kDeviceToken=tokenString
+        print("deviceToken: \(tokenString)")
     }
-    
+
     // notification received & clicked (ios 7+)
     private func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompleteionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
         print("log notification ios 7")
@@ -137,7 +145,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, FlurryMessagingDelegate, 
             }
         }
     }
-    
+
     // notification received response (ios 10)
     @available(iOS 10.0, *)
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
@@ -148,7 +156,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, FlurryMessagingDelegate, 
             }
         }
     }
-    
+
     // notification received in foreground (ios 10)
     @available(iOS 10.0, *)
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
