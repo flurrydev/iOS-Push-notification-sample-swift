@@ -13,15 +13,17 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        let str = identifierForAdvertising()
-        print("this is the idfa \(str ?? "...")")
 
     }
-
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+/*
+    /// Get idfa of your device
+    ///
+    /// - Returns: A String representitive of your device's idfa
     func identifierForAdvertising() -> String? {
         // Check whether advertising tracking is enabled
         guard ASIdentifierManager.shared().isAdvertisingTrackingEnabled else {
@@ -31,5 +33,7 @@ class ViewController: UIViewController {
         // Get and return IDFA
         return ASIdentifierManager.shared().advertisingIdentifier.uuidString
     }
-    
+     
+ */
+
 }

@@ -10,6 +10,7 @@ import UIKit
 
 var delegateClass: AnyClass = AppDelegate.self
 
+/// retrive the infomation in FlurryMarketingConfig.plist file to determine whether to use auto integration or not
 if let path = Bundle.main.path(forResource: "FlurryMarketingConfig", ofType: "plist") {
     let data = NSDictionary(contentsOfFile: path)
     let isAuto = data?.object(forKey: "isAuto") as! Bool
@@ -17,7 +18,6 @@ if let path = Bundle.main.path(forResource: "FlurryMarketingConfig", ofType: "pl
         delegateClass = AppDelegate_Auto.self
     }
 }
-
 UIApplicationMain(
     CommandLine.argc,
     UnsafeMutableRawPointer(CommandLine.unsafeArgv)

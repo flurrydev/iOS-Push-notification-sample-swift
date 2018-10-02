@@ -18,9 +18,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, FlurryMessagingDelegate, 
     var flag: Bool!
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        print("check here manual mode appdelegate")
         
-        // location
+        print("this is manual mode app delegate")
+        
+        // location service (optional), developers can send notifications to users based on location. If so, developers should ask for permission first.
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.requestWhenInUseAuthorization()
@@ -29,7 +30,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, FlurryMessagingDelegate, 
             Flurry.trackPreciseLocation(true)
         }
         // MANUAL USE
-        // register
+        // step 1 : register remote notification for ios version >= 10 or < 10
         if #available(iOS 10.0, *) {
             let center = UNUserNotificationCenter.current()
             center.delegate = self
@@ -51,7 +52,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, FlurryMessagingDelegate, 
             }
         }
  
-        // start flurry session
+        // get flurry infomation in the file "FlurryMarketingConfig.plist" and start flurry session
         if let path = Bundle.main.path(forResource: "FlurryMarketingConfig", ofType: "plist") {
             let info = NSDictionary(contentsOfFile: path)
             FlurryMessaging.setMessagingDelegate(self)
@@ -75,7 +76,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, FlurryMessagingDelegate, 
         print("didReceiveMessage = \(message.description)")
         // additional logic here
         
-        // ex: key value pair store
+        //ex: key value pair store. (FlurryMessage)message contians key-value pairs that set in the flurry portal when starting a compaign. You can get values by using message.appData["key name"]. In this sample app, all the key value information will be displayed in the KeyValueTableView.
         let sharedPref = UserDefaults.standard
         sharedPref.set(message.appData, forKey: "data")
         sharedPref.synchronize()
@@ -101,7 +102,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, FlurryMessagingDelegate, 
     }
     // MARK: - url scheme
     
-    // url scheme
+    // Optional method, if developers want to use deeplink in the flurry dev portal, this method will open a resource specified by a URL (deeplink ex: flurry://marketing/deeplink), handle and manage the opening of registered urls and match those with specific destiniations within your app
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
         print("url is : \(url.absoluteString)")
         print("url host is : \(url.host ?? "default host")")
@@ -121,14 +122,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, FlurryMessagingDelegate, 
 
     // MARK: - manual integration delegate method
 
-    // set device token
+    // UNUserNotificationCenterDelegate method : tells the delegate that the app successfully registered with Apple Push Notification service (APNs).
+    // enable passing the device token to flurry
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         FlurryMessaging.setDeviceToken(deviceToken)
     }
 
-    // notification received & clicked (ios 7+)
+    // tells the app that a remote notification arrived that indicates there is data to be fetched.
+    // ios 7+
     private func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompleteionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
-        print("log notification ios 7")
         if FlurryMessaging.isFlurryMsg(userInfo) {
             FlurryMessaging.receivedRemoteNotification(userInfo) {
                 completionHandler(UIBackgroundFetchResult.newData)
@@ -136,29 +138,31 @@ class AppDelegate: UIResponder, UIApplicationDelegate, FlurryMessagingDelegate, 
         }
     }
 
-    // notification received response (ios 10)
+    // Process and handle the user's response to a delivered notification.
+    // ios 10+ UNUserNotificationCenterDelegate method
     @available(iOS 10.0, *)
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
         if FlurryMessaging.isFlurryMsg(response.notification.request.content.userInfo) {
-            print("log response ios 10")
             FlurryMessaging.receivedNotificationResponse(response) {
                 completionHandler()
+                // ... add your handling here
             }
         }
     }
 
-    // notification received in foreground (ios 10)
+
     @available(iOS 10.0, *)
+    // present user an alert if app is in foreground when a notification is coming
+    // ios 10+ UNUserNotificationCenterDelegate method
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-        // foregroud display
-        print("foreground")
+        // closure to implemnt what to do when notification arrives
         FlurryMessaging.present(notification) {
             completionHandler([.alert, .badge, .sound])
         }
     }
     
     //MARK: -  location delegate
-    
+    // If users change location authorizaiont status, flurry will start/stop tracking users' location accorkingly
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         if status == CLAuthorizationStatus.authorizedAlways || status == CLAuthorizationStatus.authorizedWhenInUse {
             Flurry.trackPreciseLocation(true)
@@ -166,29 +170,4 @@ class AppDelegate: UIResponder, UIApplicationDelegate, FlurryMessagingDelegate, 
             Flurry.trackPreciseLocation(false)
         }
     }
-    
-    // MARK: - default
-    func applicationWillResignActive(_ application: UIApplication) {
-        // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
-        // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
-    }
-    
-    func applicationDidEnterBackground(_ application: UIApplication) {
-        // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
-        // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
-    }
-    
-    func applicationWillEnterForeground(_ application: UIApplication) {
-        // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
-    }
-    
-    func applicationDidBecomeActive(_ application: UIApplication) {
-        // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-    }
-    
-    func applicationWillTerminate(_ application: UIApplication) {
-        // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
-    }
-    
-    
 }

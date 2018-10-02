@@ -14,6 +14,7 @@ class KeyValueTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        // Get all the key value pairs passing along with the notification.
         if UserDefaults.standard.object(forKey: "data") == nil {
             print("no key value pair")
         } else {
@@ -21,9 +22,7 @@ class KeyValueTableViewController: UITableViewController {
             keys = Array(appData.keys)
             values = Array(appData.values)
         }
-
     }
-
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
