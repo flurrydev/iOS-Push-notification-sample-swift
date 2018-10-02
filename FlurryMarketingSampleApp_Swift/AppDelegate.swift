@@ -10,8 +10,7 @@ import UIKit
 import Flurry_iOS_SDK
 import CoreLocation
 
-
-@UIApplicationMain
+// @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, FlurryMessagingDelegate, UNUserNotificationCenterDelegate, CLLocationManagerDelegate{
     
     var window: UIWindow?
@@ -20,7 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, FlurryMessagingDelegate, 
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
-        flag = false
+        flag = true
         
         // location
         locationManager.delegate = self
@@ -33,9 +32,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, FlurryMessagingDelegate, 
         if flag {
             // AUTO USE
             FlurryMessaging.setAutoIntegrationForMessaging()
+            print("auto use")
         } else {
             // MANUAL USE
             // register
+            print("manual use")
             if #available(iOS 10.0, *) {
                 let center = UNUserNotificationCenter.current()
                 center.delegate = self
@@ -52,7 +53,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, FlurryMessagingDelegate, 
             } else {
                 // early version support
                 UIApplication.shared.registerUserNotificationSettings(UIUserNotificationSettings(types: [.badge, .sound, .alert], categories: nil))
-                UIApplication.shared.registerForRemoteNotifications()
+                DispatchQueue.main.async {
+                    UIApplication.shared.registerForRemoteNotifications()
+                }
+                
             }
         }
  
@@ -81,9 +85,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, FlurryMessagingDelegate, 
         // additional logic here
         
         // ex: key value pair store
-        print("here")
-        message.appData?.forEach { print("\($0): \($1)") }
-        print("there")
         let sharedPref = UserDefaults.standard
         sharedPref.set(message.appData, forKey: "data")
         sharedPref.synchronize()
@@ -95,7 +96,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, FlurryMessagingDelegate, 
         // additional logic here
         
         // ex: key value pair store
-        message.appData?.forEach { print("\($0): \($1)") }
         let sharedPref = UserDefaults.standard
         sharedPref.set(message.appData, forKey: "data")
         sharedPref.synchronize()
@@ -104,6 +104,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, FlurryMessagingDelegate, 
         if let urlStr = message.appData!["deeplink"] {
             let appUrl = URL(string: urlStr as! String)
             UIApplication.shared.openURL(appUrl!)
+            
         }
         
     }
@@ -131,9 +132,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, FlurryMessagingDelegate, 
 
     // set device token
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
-        let   tokenString = deviceToken.reduce("", {$0 + String(format: "%02X",    $1)})
-        // kDeviceToken=tokenString
-        print("deviceToken: \(tokenString)")
+        FlurryMessaging.setDeviceToken(deviceToken)
     }
 
     // notification received & clicked (ios 7+)
