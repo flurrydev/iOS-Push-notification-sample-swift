@@ -8,6 +8,16 @@
 
 import UIKit
 
+var delegateClass: AnyClass = AppDelegate.self
+
+if let path = Bundle.main.path(forResource: "FlurryMarketingConfig", ofType: "plist") {
+    let data = NSDictionary(contentsOfFile: path)
+    let isAuto = data?.object(forKey: "isAuto") as! Bool
+    if isAuto {
+        delegateClass = AppDelegate_Auto.self
+    }
+}
+
 UIApplicationMain(
     CommandLine.argc,
     UnsafeMutableRawPointer(CommandLine.unsafeArgv)
@@ -16,6 +26,6 @@ UIApplicationMain(
             capacity: Int(CommandLine.argc)
     ),
     NSStringFromClass(UIApplication.self),
-    NSStringFromClass(AppDelegate.self)
+    NSStringFromClass(delegateClass)
 )
 

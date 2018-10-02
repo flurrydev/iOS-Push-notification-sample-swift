@@ -18,8 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, FlurryMessagingDelegate, 
     var flag: Bool!
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        
-        flag = true
+        print("check here manual mode appdelegate")
         
         // location
         locationManager.delegate = self
@@ -29,34 +28,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate, FlurryMessagingDelegate, 
         if CLLocationManager.locationServicesEnabled() {
             Flurry.trackPreciseLocation(true)
         }
-        if flag {
-            // AUTO USE
-            FlurryMessaging.setAutoIntegrationForMessaging()
-            print("auto use")
-        } else {
-            // MANUAL USE
-            // register
-            print("manual use")
-            if #available(iOS 10.0, *) {
-                let center = UNUserNotificationCenter.current()
-                center.delegate = self
-                center.requestAuthorization(options: [.alert, .sound]) { (granted, error) in
-                    // Enable or disable features based on authorization.
-                    if granted {
-                        print("Notification enable successfully")
-                    } else {
-                        print("push registration failed. ERROR: \(error?.localizedDescription ?? "error")")
-                    }
-                    application.registerForRemoteNotifications()
+        // MANUAL USE
+        // register
+        if #available(iOS 10.0, *) {
+            let center = UNUserNotificationCenter.current()
+            center.delegate = self
+            center.requestAuthorization(options: [.alert, .sound]) { (granted, error) in
+                // Enable or disable features based on authorization.
+                if granted {
+                    print("Notification enable successfully")
+                } else {
+                    print("push registration failed. ERROR: \(error?.localizedDescription ?? "error")")
+                }
+                application.registerForRemoteNotifications()
                     
-                }
-            } else {
-                // early version support
-                UIApplication.shared.registerUserNotificationSettings(UIUserNotificationSettings(types: [.badge, .sound, .alert], categories: nil))
-                DispatchQueue.main.async {
+            }
+        } else {
+            // early version support
+            UIApplication.shared.registerUserNotificationSettings(UIUserNotificationSettings(types: [.badge, .sound, .alert], categories: nil))
+            DispatchQueue.main.async {
                     UIApplication.shared.registerForRemoteNotifications()
-                }
-                
             }
         }
  

@@ -1,0 +1,104 @@
+//
+//  AppDelegate_Auto.swift
+//  FlurryMarketingSampleApp_Swift
+//
+//  Created by Yilun Xu on 10/2/18.
+//  Copyright © 2018 com.flurry. All rights reserved.
+//
+
+import UIKit
+import CoreLocation
+import Flurry_iOS_SDK
+
+class AppDelegate_Auto: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate, FlurryMessagingDelegate {
+    var window: UIWindow?
+    let locationManager = CLLocationManager()
+func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+        print("check here auto mode appdelegate")
+        // location
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.requestWhenInUseAuthorization()
+        
+        if CLLocationManager.locationServicesEnabled() {
+            Flurry.trackPreciseLocation(true)
+        }
+        FlurryMessaging.setAutoIntegrationForMessaging()
+        
+        // start flurry session
+        if let path = Bundle.main.path(forResource: "FlurryMarketingConfig", ofType: "plist") {
+            let info = NSDictionary(contentsOfFile: path)
+            FlurryMessaging.setMessagingDelegate(self)
+            let builder = FlurrySessionBuilder.init()
+                .withLogLevel(FlurryLogLevelAll)
+                .withAppVersion(info?.object(forKey: "appVersion") as! String)
+                .withCrashReporting(info?.object(forKey: "enableCrashReport") as! Bool)
+                .withSessionContinueSeconds(info?.object(forKey: "sessionSeconds") as! Int)
+                .withIncludeBackgroundSessions(inMetrics: true)
+            Flurry.startSession(info?.object(forKey: "apiKey") as! String, with: builder)
+        } else {
+            print("please check your plist file")
+        }
+        return true
+
+    }
+    
+    // MARK: - flurry messaging delegate methods
+    
+    // delegate method, invoked when a notification is received
+    func didReceive(_ message: FlurryMessage) {
+        print("didReceiveMessage = \(message.description)")
+        // additional logic here
+        
+        // ex: key value pair store
+        let sharedPref = UserDefaults.standard
+        sharedPref.set(message.appData, forKey: "data")
+        sharedPref.synchronize()
+    }
+    
+    // delegate method when a notification action is performed
+    func didReceiveAction(withIdentifier identifier: String?, message: FlurryMessage) {
+        print("didReceiveAction \(identifier ?? "no identifier"), Message = \(message.description)");
+        // additional logic here
+        
+        // ex: key value pair store
+        let sharedPref = UserDefaults.standard
+        sharedPref.set(message.appData, forKey: "data")
+        sharedPref.synchronize()
+        
+        // ex: deep links (open url)
+        if let urlStr = message.appData!["deeplink"] {
+            let appUrl = URL(string: urlStr as! String)
+            UIApplication.shared.openURL(appUrl!)
+            
+        }
+        
+    }
+    // MARK: - url scheme
+    
+    // url scheme
+    func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
+        print("url is : \(url.absoluteString)")
+        print("url host is : \(url.host ?? "default host")")
+        print("url path is : \(url.path)")
+        print("url schme is : \(url.scheme ?? "default schme")")
+        if url.scheme == "flurry" && url.host == "marketing" && url.path == "/deeplink" {
+            print("valid deeplink url")
+            let rootViewController = self.window!.rootViewController as! UINavigationController
+            let mainStoryboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+            let deeplinkVC = mainStoryboard.instantiateViewController(withIdentifier: "deeplink") as! DeeplinkViewController
+            rootViewController.pushViewController(deeplinkVC, animated: true)
+        }
+        // add additional custom url scheme here to manage app deeplinking...
+        return true
+    }
+    //MARK: -  location delegate
+    
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        if status == CLAuthorizationStatus.authorizedAlways || status == CLAuthorizationStatus.authorizedWhenInUse {
+            Flurry.trackPreciseLocation(true)
+        } else {
+            Flurry.trackPreciseLocation(false)
+        }
+    }
+}
