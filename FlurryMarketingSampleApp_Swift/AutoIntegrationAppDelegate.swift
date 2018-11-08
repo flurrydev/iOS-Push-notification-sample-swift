@@ -1,5 +1,5 @@
 //
-//  AppDelegate_Auto.swift
+//  AutoIntegrationAppDelegate.swift
 //  FlurryMarketingSampleApp_Swift
 //
 //  Created by Yilun Xu on 10/2/18.
@@ -7,17 +7,17 @@
 //
 
 import UIKit
+// CoreLocation is not requried here.
 import CoreLocation
 import Flurry_iOS_SDK
 
-class AppDelegate_Auto: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate, FlurryMessagingDelegate {
+class AutoIntegratonAppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate, FlurryMessagingDelegate {
     var window: UIWindow?
     let locationManager = CLLocationManager()
-func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-
-        print("this is auto mode app delegate")
     
-        // location
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+
+        // ask for location permission from users if devs want to send notification based on location
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.requestWhenInUseAuthorization()
@@ -26,7 +26,7 @@ func application(_ application: UIApplication, didFinishLaunchingWithOptions lau
             Flurry.trackPreciseLocation(true)
         }
     
-        // Auto Integration
+        // set Auto Integration
         FlurryMessaging.setAutoIntegrationForMessaging()
         
         // get flurry infomation in the file "FlurryMarketingConfig.plist" and start flurry session
@@ -43,6 +43,7 @@ func application(_ application: UIApplication, didFinishLaunchingWithOptions lau
         } else {
             print("please check your plist file")
         }
+    
         return true
 
     }
@@ -54,7 +55,13 @@ func application(_ application: UIApplication, didFinishLaunchingWithOptions lau
         print("didReceiveMessage = \(message.description)")
         // additional logic here
         
-        //ex: key value pair store. (FlurryMessage)message contians key-value pairs that set in the flurry portal when starting a compaign. You can get values by using message.appData["key name"]. In this sample app, all the key value information will be displayed in the KeyValueTableView.
+        /*
+            Ex: Key value pair store.
+            (FlurryMessage)message contians key-value pairs that set in the flurry portal when starting a compaign.
+            You can get values by using message.appData["key name"].
+            In this sample app,  all the key value information will be displayed in the KeyValueTableView.
+         */
+        
         let sharedPref = UserDefaults.standard
         sharedPref.set(message.appData, forKey: "data")
         sharedPref.synchronize()
@@ -81,12 +88,10 @@ func application(_ application: UIApplication, didFinishLaunchingWithOptions lau
     
     // MARK: - url scheme
     
-    // Optional method, if developers want to use deeplink in the flurry dev portal, this method will open a resource specified by a URL (deeplink ex: flurry://marketing/deeplink), handle and manage the opening of registered urls and match those with specific destiniations within your app
+    /*
+        Optional method for deeplink usage, this method opens a resource specified by a URL (deeplink ex: flurry:// marketing/deeplink). It handles and manages the opening of registered urls and match those with specific destiniations within your app
+     */
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
-        print("url is : \(url.absoluteString)")
-        print("url host is : \(url.host ?? "default host")")
-        print("url path is : \(url.path)")
-        print("url schme is : \(url.scheme ?? "default schme")")
         if url.scheme == "flurry" && url.host == "marketing" && url.path == "/deeplink" {
             print("valid deeplink url")
             let rootViewController = self.window!.rootViewController as! UINavigationController
@@ -97,8 +102,9 @@ func application(_ application: UIApplication, didFinishLaunchingWithOptions lau
         // add additional custom url scheme here to manage app deeplinking...
         return true
     }
+    
     //MARK: -  location delegate
-    // If users change location authorizaiont status, flurry will start/stop tracking users' location accorkingly
+    // If users change location authorizaiont status, flurry will start/stop tracking users' location.
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         if status == CLAuthorizationStatus.authorizedAlways || status == CLAuthorizationStatus.authorizedWhenInUse {
             Flurry.trackPreciseLocation(true)

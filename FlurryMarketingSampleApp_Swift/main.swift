@@ -15,7 +15,7 @@ if let path = Bundle.main.path(forResource: "FlurryMarketingConfig", ofType: "pl
     let data = NSDictionary(contentsOfFile: path)
     let isAuto = data?.object(forKey: "isAuto") as! Bool
     if isAuto {
-        delegateClass = AppDelegate_Auto.self
+        delegateClass = AutoIntegratonAppDelegate.self
     }
 }
 UIApplicationMain(

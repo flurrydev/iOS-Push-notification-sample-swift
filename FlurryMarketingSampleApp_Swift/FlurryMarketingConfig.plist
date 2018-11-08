@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>isAuto</key>
-	<true/>
+	<false/>
 	<key>enableCrashReport</key>
 	<true/>
 	<key>apiKey</key>

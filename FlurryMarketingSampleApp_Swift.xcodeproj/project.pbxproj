@@ -11,7 +11,7 @@
 		7602E31F2162B77F0094FF20 /* KeyValueTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7602E31E2162B77F0094FF20 /* KeyValueTableViewController.swift */; };
 		7602E3212162B9FB0094FF20 /* DeeplinkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7602E3202162B9FB0094FF20 /* DeeplinkViewController.swift */; };
 		7615836C216420E600DCDB6C /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7615836B216420E600DCDB6C /* main.swift */; };
-		7615836E2164259700DCDB6C /* AppDelegate_Auto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7615836D2164259700DCDB6C /* AppDelegate_Auto.swift */; };
+		7615836E2164259700DCDB6C /* AutoIntegrationAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7615836D2164259700DCDB6C /* AutoIntegrationAppDelegate.swift */; };
 		765DEBE7215D7B6C00F98BB1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 765DEBE6215D7B6C00F98BB1 /* AppDelegate.swift */; };
 		765DEBEC215D7B6C00F98BB1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 765DEBEA215D7B6C00F98BB1 /* Main.storyboard */; };
 		765DEBEE215D7B6C00F98BB1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 765DEBED215D7B6C00F98BB1 /* Assets.xcassets */; };
@@ -28,7 +28,7 @@
 		7602E31E2162B77F0094FF20 /* KeyValueTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyValueTableViewController.swift; sourceTree = "<group>"; };
 		7602E3202162B9FB0094FF20 /* DeeplinkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeeplinkViewController.swift; sourceTree = "<group>"; };
 		7615836B216420E600DCDB6C /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
-		7615836D2164259700DCDB6C /* AppDelegate_Auto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate_Auto.swift; sourceTree = "<group>"; };
+		7615836D2164259700DCDB6C /* AutoIntegrationAppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoIntegrationAppDelegate.swift; sourceTree = "<group>"; };
 		765DEBE3215D7B6C00F98BB1 /* FlurryMarketingSampleApp_Swift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FlurryMarketingSampleApp_Swift.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		765DEBE6215D7B6C00F98BB1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		765DEBEB215D7B6C00F98BB1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -77,7 +77,7 @@
 				765DEBF8215D7B9300F98BB1 /* FlurryMarketingSampleApp_Swift.entitlements */,
 				765DEBE6215D7B6C00F98BB1 /* AppDelegate.swift */,
 				7615836B216420E600DCDB6C /* main.swift */,
-				7615836D2164259700DCDB6C /* AppDelegate_Auto.swift */,
+				7615836D2164259700DCDB6C /* AutoIntegrationAppDelegate.swift */,
 				765DEBF9215D7E2900F98BB1 /* FlurryMarketingConfig.plist */,
 				765DEBEA215D7B6C00F98BB1 /* Main.storyboard */,
 				7602E31E2162B77F0094FF20 /* KeyValueTableViewController.swift */,
@@ -229,7 +229,7 @@
 				7602E319216292210094FF20 /* ViewController.swift in Sources */,
 				7615836C216420E600DCDB6C /* main.swift in Sources */,
 				7602E3212162B9FB0094FF20 /* DeeplinkViewController.swift in Sources */,
-				7615836E2164259700DCDB6C /* AppDelegate_Auto.swift in Sources */,
+				7615836E2164259700DCDB6C /* AutoIntegrationAppDelegate.swift in Sources */,
 				7602E31F2162B77F0094FF20 /* KeyValueTableViewController.swift in Sources */,
 				765DEBE7215D7B6C00F98BB1 /* AppDelegate.swift in Sources */,
 			);
