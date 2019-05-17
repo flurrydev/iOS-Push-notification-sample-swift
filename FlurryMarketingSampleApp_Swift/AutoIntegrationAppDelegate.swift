@@ -1,55 +1,34 @@
 //
-//  AppDelegate.swift
+//  AutoIntegrationAppDelegate.swift
 //  FlurryMarketingSampleApp_Swift
 //
-//  Created by Yilun Xu on 9/27/18.
+//  Created by Yilun Xu on 10/2/18.
 //  Copyright © 2018 com.flurry. All rights reserved.
 //
 
 import UIKit
-import Flurry_iOS_SDK
-// CoreLocation is not required here.
+// CoreLocation is not requried here.
 import CoreLocation
+import Flurry_iOS_SDK
 
-// @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate, FlurryMessagingDelegate, UNUserNotificationCenterDelegate, CLLocationManagerDelegate{
-    
+class AutoIntegratonAppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate, FlurryMessagingDelegate {
     var window: UIWindow?
     let locationManager = CLLocationManager()
-    var flag: Bool!
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        
-        // location service (optional), developers can send notifications to users based on location. If so, developers should ask for permission first.
-        
+
+        // ask for location permission from users if devs want to send notification based on location
         locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.requestWhenInUseAuthorization()
         
         if CLLocationManager.locationServicesEnabled() {
             Flurry.trackPreciseLocation(true)
         }
-        // register remote notification for ios version >= 10 or < 10
-        if #available(iOS 10.0, *) {
-            let center = UNUserNotificationCenter.current()
-            center.delegate = self
-            center.requestAuthorization(options: [.alert, .sound]) { (granted, error) in
-                // Enable or disable features based on authorization.
-                if granted {
-                    print("Notification enable successfully")
-                } else {
-                    print("push registration failed. ERROR: \(error?.localizedDescription ?? "error")")
-                }
-                application.registerForRemoteNotifications()
-                    
-            }
-        } else {
-            // early iOS version support
-            UIApplication.shared.registerUserNotificationSettings(UIUserNotificationSettings(types: [.badge, .sound, .alert], categories: nil))
-            DispatchQueue.main.async {
-                    UIApplication.shared.registerForRemoteNotifications()
-            }
-        }
- 
+    
+        // set Auto Integration
+        FlurryMessaging.setAutoIntegrationForMessaging()
+        
         // get flurry infomation in the file "FlurryMarketingConfig.plist" and start flurry session
         if let path = Bundle.main.path(forResource: "FlurryMarketingConfig", ofType: "plist") {
             let info = NSDictionary(contentsOfFile: path)
@@ -64,7 +43,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, FlurryMessagingDelegate, 
         } else {
             print("please check your plist file")
         }
-      return true
+    
+        return true
+
     }
     
     // MARK: - flurry messaging delegate methods
@@ -76,7 +57,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, FlurryMessagingDelegate, 
         
         /*
             Ex: Key value pair store.
-            (FlurryMessage)message contians key-value pairs that set in the flurry portal when starting a compaign. You can get values by using message.appData["key name"].
+            (FlurryMessage)message contians key-value pairs that set in the flurry portal when starting a compaign.
+            You can get values by using message.appData["key name"].
             In this sample app,  all the key value information will be displayed in the KeyValueTableView.
          */
         
@@ -103,6 +85,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, FlurryMessagingDelegate, 
         }
         
     }
+    
     // MARK: - url scheme
     
     /*
@@ -118,49 +101,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, FlurryMessagingDelegate, 
         }
         // add additional custom url scheme here to manage app deeplinking...
         return true
-    }
-
-    // MARK: - Notification Delegate methods
-
-    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
-        // enable passing the device token to flurry
-        FlurryMessaging.setDeviceToken(deviceToken)
-    }
-
-    private func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompleteionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
-        if FlurryMessaging.isFlurryMsg(userInfo) {
-            FlurryMessaging.receivedRemoteNotification(userInfo) {
-                completionHandler(UIBackgroundFetchResult.newData)
-            }
-        }
-    }
-
-    @available(iOS 10.0, *)
-    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
-        if FlurryMessaging.isFlurryMsg(response.notification.request.content.userInfo) {
-            FlurryMessaging.receivedNotificationResponse(response) {
-                completionHandler()
-                // ... add your handling here, you can have your deeplink logic here
-                
-                /*
-                    // ex: Get value for key "name" if there exists.
-                    let userInfo = response.notification.request.content.userInfo
-                    let appData = userInfo["appData"] as? NSDictionary
-                    let name = appData!["name"] as? String
-                    print(name ?? "no such key")
-                 */
- 
-            }
-        }
-    }
-
-
-    @available(iOS 10.0, *)
-    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-        // closure to implemnt what to do when notification arrives
-        FlurryMessaging.present(notification) {
-            completionHandler([.alert, .badge, .sound])
-        }
     }
     
     //MARK: -  location delegate
