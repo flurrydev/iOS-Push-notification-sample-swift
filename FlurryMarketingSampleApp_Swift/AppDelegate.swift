@@ -39,8 +39,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, FlurryMessagingDelegate, 
                 } else {
                     print("push registration failed. ERROR: \(error?.localizedDescription ?? "error")")
                 }
-                application.registerForRemoteNotifications()
-                    
+                
+                DispatchQueue.main.async {
+                    application.registerForRemoteNotifications()
+                }
             }
         } else {
             // early iOS version support

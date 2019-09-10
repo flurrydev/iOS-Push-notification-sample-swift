@@ -188,17 +188,16 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-FlurryMarketingSampleApp_Swift/Pods-FlurryMarketingSampleApp_Swift-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/Flurry-iOS-SDK/Flurry_iOS_SDK.framework",
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-FlurryMarketingSampleApp_Swift/Pods-FlurryMarketingSampleApp_Swift-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Flurry_iOS_SDK.framework",
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-FlurryMarketingSampleApp_Swift/Pods-FlurryMarketingSampleApp_Swift-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-FlurryMarketingSampleApp_Swift/Pods-FlurryMarketingSampleApp_Swift-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-FlurryMarketingSampleApp_Swift/Pods-FlurryMarketingSampleApp_Swift-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		5652C7483FB255BFE0212FFE /* [CP] Check Pods Manifest.lock */ = {
