@@ -20,11 +20,7 @@ if let path = Bundle.main.path(forResource: "FlurryMarketingConfig", ofType: "pl
 }
 UIApplicationMain(
     CommandLine.argc,
-    UnsafeMutableRawPointer(CommandLine.unsafeArgv)
-        .bindMemory(
-            to: UnsafeMutablePointer<Int8>.self,
-            capacity: Int(CommandLine.argc)
-    ),
+    CommandLine.unsafeArgv,
     NSStringFromClass(UIApplication.self),
     NSStringFromClass(delegateClass)
 )

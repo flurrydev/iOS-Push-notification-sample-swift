@@ -15,7 +15,7 @@ class AutoIntegratonAppDelegate: UIResponder, UIApplicationDelegate, CLLocationM
     var window: UIWindow?
     let locationManager = CLLocationManager()
     
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 
         // ask for location permission from users if devs want to send notification based on location
         locationManager.delegate = self
@@ -91,7 +91,7 @@ class AutoIntegratonAppDelegate: UIResponder, UIApplicationDelegate, CLLocationM
     /*
         Optional method for deeplink usage, this method opens a resource specified by a URL (deeplink ex: flurry:// marketing/deeplink). It handles and manages the opening of registered urls and match those with specific destiniations within your app
      */
-    func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
+    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
         if url.scheme == "flurry" && url.host == "marketing" && url.path == "/deeplink" {
             print("valid deeplink url")
             let rootViewController = self.window!.rootViewController as! UINavigationController

@@ -18,7 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, FlurryMessagingDelegate, 
     let locationManager = CLLocationManager()
     var flag: Bool!
     
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         // location service (optional), developers can send notifications to users based on location. If so, developers should ask for permission first.
         
@@ -110,7 +110,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, FlurryMessagingDelegate, 
     /*
         Optional method for deeplink usage, this method opens a resource specified by a URL (deeplink ex: flurry:// marketing/deeplink). It handles and manages the opening of registered urls and match those with specific destiniations within your app
      */
-    func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
+    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
         if url.scheme == "flurry" && url.host == "marketing" && url.path == "/deeplink" {
             print("valid deeplink url")
             let rootViewController = self.window!.rootViewController as! UINavigationController
