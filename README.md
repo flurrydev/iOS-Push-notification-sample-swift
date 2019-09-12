@@ -1,5 +1,14 @@
 # Flurry Marketing Sample Application (Swift Version)
 
+1) Clone the repo
+2) Run 'pod install' in the project folder
+3) Replace the sample app's bundle id with your own
+4) Replace the app's api key with your own in FlurryMarketingConfig.plist
+
+This app is for iPhone only.
+
+Detailed instructions are written in [Yahoo Developer Network Website](https://developer.yahoo.com/flurry/docs/push/integration/ios/).
+
 This is an Swift version sample app based on Flurry Push service. See [Objective-C version](https://github.com/flurrydev/iOS-Push-notification-sample-ObjC) here. Flurry Push enables external app developers to send targeted messages to re-engage and retain users.<br/>
 
 Detailed instructions are written in [Yahoo Developer Network Website](https://developer.yahoo.com/flurry/docs/push/integration/ios/). Developers can choose either auto integration mode or manual integration mode. There are two AppDelegate in this project. If choosing auto mode, please change value to YES under key "isAuto" in the FlurryMarketingConfig.plist file. If choosing manual mode, change the boolean value to NO instead. In the main function, appropriate AppDelegate will be used based on "isAuto" value. (AppDelegate_Auto.swift -> Auto Use, AppDelegate.swift -> Manual Use). 
