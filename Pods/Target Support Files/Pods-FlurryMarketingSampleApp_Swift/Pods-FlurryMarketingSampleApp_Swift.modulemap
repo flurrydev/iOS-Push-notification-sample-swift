@@ -1,0 +1,6 @@
+framework module Pods_FlurryMarketingSampleApp_Swift {
+  umbrella header "Pods-FlurryMarketingSampleApp_Swift-umbrella.h"
+
+  export *
+  module * { export * }
+}
