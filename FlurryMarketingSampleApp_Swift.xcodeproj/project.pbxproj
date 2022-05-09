@@ -116,7 +116,6 @@
 				765DEBDF215D7B6C00F98BB1 /* Sources */,
 				765DEBE0215D7B6C00F98BB1 /* Frameworks */,
 				765DEBE1215D7B6C00F98BB1 /* Resources */,
-				50AEA6594A5691311FF8CA2E /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -184,23 +183,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		50AEA6594A5691311FF8CA2E /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-FlurryMarketingSampleApp_Swift/Pods-FlurryMarketingSampleApp_Swift-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-FlurryMarketingSampleApp_Swift/Pods-FlurryMarketingSampleApp_Swift-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-FlurryMarketingSampleApp_Swift/Pods-FlurryMarketingSampleApp_Swift-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		5652C7483FB255BFE0212FFE /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -380,7 +362,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = S6JSG6FHB3;
 				INFOPLIST_FILE = FlurryMarketingSampleApp_Swift/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -401,7 +383,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = S6JSG6FHB3;
 				INFOPLIST_FILE = FlurryMarketingSampleApp_Swift/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

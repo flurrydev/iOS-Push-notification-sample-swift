@@ -55,14 +55,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, FlurryMessagingDelegate, 
         // get flurry infomation in the file "FlurryMarketingConfig.plist" and start flurry session
         if let path = Bundle.main.path(forResource: "FlurryMarketingConfig", ofType: "plist") {
             let info = NSDictionary(contentsOfFile: path)
-            FlurryMessaging.setMessagingDelegate(self)
+            FlurryMessaging.set(delegate: self)
             let builder = FlurrySessionBuilder.init()
-                .withLogLevel(FlurryLogLevelAll)
-                .withAppVersion(info?.object(forKey: "appVersion") as! String)
-                .withCrashReporting(info?.object(forKey: "enableCrashReport") as! Bool)
-                .withSessionContinueSeconds(info?.object(forKey: "sessionSeconds") as! Int)
-                .withIncludeBackgroundSessions(inMetrics: true)
-            Flurry.startSession(info?.object(forKey: "apiKey") as! String, with: builder)
+                .build(logLevel: .all)
+                .build(appVersion: info?.object(forKey: "appVersion") as! String)
+                .build(crashReportingEnabled: info?.object(forKey: "enableCrashReport") as! Bool)
+            
+            Flurry.startSession(apiKey: info?.object(forKey: "apiKey") as! String, sessionBuilder: builder)
         } else {
             print("please check your plist file")
         }
@@ -126,7 +125,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, FlurryMessagingDelegate, 
 
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         // enable passing the device token to flurry
-        FlurryMessaging.setDeviceToken(deviceToken)
+        FlurryMessaging.set(deviceToken: deviceToken)
     }
 
     private func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompleteionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
@@ -160,9 +159,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, FlurryMessagingDelegate, 
     @available(iOS 10.0, *)
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         // closure to implemnt what to do when notification arrives
-        FlurryMessaging.present(notification) {
+        FlurryMessaging.presentNotification(notification, completionHandler: {
             completionHandler([.alert, .badge, .sound])
-        }
+        })
     }
     
     //MARK: -  location delegate

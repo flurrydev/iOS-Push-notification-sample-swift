@@ -32,14 +32,12 @@ class AutoIntegratonAppDelegate: UIResponder, UIApplicationDelegate, CLLocationM
         // get flurry infomation in the file "FlurryMarketingConfig.plist" and start flurry session
         if let path = Bundle.main.path(forResource: "FlurryMarketingConfig", ofType: "plist") {
             let info = NSDictionary(contentsOfFile: path)
-            FlurryMessaging.setMessagingDelegate(self)
+            FlurryMessaging.set(delegate: self)
             let builder = FlurrySessionBuilder.init()
-                .withLogLevel(FlurryLogLevelAll)
-                .withAppVersion(info?.object(forKey: "appVersion") as! String)
-                .withCrashReporting(info?.object(forKey: "enableCrashReport") as! Bool)
-                .withSessionContinueSeconds(info?.object(forKey: "sessionSeconds") as! Int)
-                .withIncludeBackgroundSessions(inMetrics: true)
-            Flurry.startSession(info?.object(forKey: "apiKey") as! String, with: builder)
+                .build(logLevel: .all)
+                .build(appVersion: info?.object(forKey: "appVersion") as! String)
+                .build(crashReportingEnabled: info?.object(forKey: "enableCrashReport") as! Bool)
+            Flurry.startSession(apiKey: info?.object(forKey: "apiKey") as! String, sessionBuilder: builder)
         } else {
             print("please check your plist file")
         }
