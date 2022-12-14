@@ -8,6 +8,7 @@
 
 import UIKit
 import Flurry_iOS_SDK
+import Flurry_Messaging
 // CoreLocation is not required here.
 import CoreLocation
 

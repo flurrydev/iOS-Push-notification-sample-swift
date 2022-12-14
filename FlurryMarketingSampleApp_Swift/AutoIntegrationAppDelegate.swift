@@ -10,6 +10,7 @@ import UIKit
 // CoreLocation is not requried here.
 import CoreLocation
 import Flurry_iOS_SDK
+import Flurry_Messaging
 
 class AutoIntegratonAppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate, FlurryMessagingDelegate {
     var window: UIWindow?
